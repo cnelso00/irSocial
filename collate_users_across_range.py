@@ -1,5 +1,6 @@
 import os
 import logs_to_dicts as ld
+import User
 
 
 def get_conversations_site19():
@@ -40,6 +41,7 @@ convo_list = get_conversations_site19()
 instances = get_users_list_from_all_conversations(convo_list)
 size = len(instances)
 
+
 def list_active_users(instances):
     active_username_list = list()
     for user_instance in instances:
@@ -47,7 +49,31 @@ def list_active_users(instances):
 
     return active_username_list
 
+# iterate through user's message log, check for usernames, append to username mentions
+# probably faster to do this when initially getting user logs
+
+
 def list_username_mentions(user, usernames_list):
+    for message in user.message_log:
+        for username in usernames_list:
+            if username in message:
+                if username not in user.username_mentions:
+                    user.username_mentions[username] = 1
+                else:
+                    user.username_mentions[username] += user.username_mentions[username]
+
+def calculate_unmodified_social_weights(deep_users_list):
+    for user in deep_users_list:
+        for username, mention_count in user.username_mentions.items():
+            username_and_mentions = dict()
+            username_and_mentions['username'] = username
+            username_and_mentions['mentions'] = mention_count
+            #username_and_mentions['mentioned'] = deep_users_list.find 
+
+
+def weighting_function(x, y):
+    return x + y
+
 
 
 

@@ -1,11 +1,9 @@
 import sys
 import os
 import unittest
-import _datetime as dt
-from _datetime import tzinfo as tz
-from _datetime import timedelta as tdelta
 import dateutil.parser
-import json
+import User
+
 
 
 # TODO unit tests
@@ -14,45 +12,11 @@ import json
 # TODO social network mapping / close friends mapping
 # TODO Stylometric Analysis
 # TODO send user text to SMMRY
+# TODO parsers for other irc clients
 
 path = '/Users/connornelson/Desktop/Logs/irc.synirc.net.old/Channels/#site19/'
 
 dir_list = os.listdir(path)
-
-
-class User:
-    def __init__(self, user):
-        self.username = user
-        self.message = {'timestamp': dt.datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0), 'message': ""}
-        self.message_log = list()
-        self.username_mentions = list()
-        self.username_mentions_format = json.
-
-    def set_username(self, username):
-        self.username = username
-
-    def set_message(self, timestamp, message_text):
-        new_message = self.message.copy()
-        new_message['timestamp'] = dt_from_timestamp(timestamp)
-        new_message['message'] = message_text
-        return new_message
-
-    def add_message(self, timestamp, message_text):
-        self.message_log.append(self.set_message(timestamp, message_text))
-
-    def get_username(self):
-        return self.username
-
-    def get_user(self):
-        return_string  = "Username = " + self.username + "\n"
-        len_messages = len(self.message_log)
-        return_string = return_string + "Number of messages: " + str(len_messages) + "\n"
-        #for item in self.message_log:
-        #    return_string = return_string + str(item['timestamp']) + " : " + item['message']
-
-        return return_string
-
-    def add_username(self, username):
 
 
 
