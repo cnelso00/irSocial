@@ -1,6 +1,7 @@
 import os
 import logs_to_dicts as ld
 import User
+import social_connection as edge
 
 def get_conversations_site19():
     site19_logs_path = '/Users/connornelson/Desktop/Logs/irc.synirc.net.old/Channels/#site19/'
@@ -48,8 +49,15 @@ def list_active_users(instances):
 
     return active_username_list
 
-# iterate through user's message log, check for usernames, append to username mentions
-# probably faster to do this when initially getting user logs
+#preparing to turn users into graph
+
+
+def init_social_network(deep_users_list):
+    active_network_edges = dict()
+    for user in deep_users_list:
+
+
+
 
 
 def list_username_mentions(user, usernames_list):
@@ -65,14 +73,10 @@ def list_username_mentions(user, usernames_list):
 def calculate_weights_between_users(deep_users_list):
     for user in deep_users_list:
         for username, mention_count in user.username_mentions.items():
-            username_and_mentions = dict()
-            username_and_mentions['username'] = username
-            username_and_mentions['mentions'] = mention_count
-            username_and_mentions['mentioned'] = get_username_mentions(return_user_from_list_by_name(username, deep_users_list), user.get_username)
-            username_and_mentions['weight'] = weighting_function(username_and_mentions['mentions'], username_and_mentions['mentioned'])
+            user.social_network.append(edge.SocialConnection(user_instance_from_name(username), mention_count, get_username_mentions(username, user_instance_from_name(user))))
 
 
-def return_user_from_list_by_name(username, deep_users_list):
+def user_instance_from_name(username, deep_users_list):
         for user in deep_users_list:
             if user.get_username() == username:
                 return user
@@ -82,9 +86,6 @@ def return_user_from_list_by_name(username, deep_users_list):
 def get_username_mentions(user, user_mentioned):
     return user.username_mentions[user_mentioned]
 
-
-def weighting_function(x, y):
-    return x + y
 
 
 

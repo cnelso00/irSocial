@@ -14,7 +14,7 @@ import User
 # TODO send user text to SMMRY
 # TODO parsers for other irc clients
 
-path = '/Users/connornelson/Desktop/Logs/irc.synirc.net.old/Channels/#site19/'
+path = sys.argv[1]
 
 dir_list = os.listdir(path)
 
