@@ -19,7 +19,7 @@ def get_conversations_site19():
 # but this is a monstrosity
 
 
-def get_users_list_from_all_conversations(conversations):
+def get_deep_users_list_from_all_conversations(conversations):
     all_user_instances = list()
     for conversation in conversations:
         user_instances_from_conversation = ld.grab_users_userdata(conversation)
@@ -38,7 +38,7 @@ def get_users_list_from_all_conversations(conversations):
 
 
 convo_list = get_conversations_site19()
-instances = get_users_list_from_all_conversations(convo_list)
+instances = get_deep_users_list_from_all_conversations(convo_list)
 size = len(instances)
 
 
@@ -52,9 +52,11 @@ def list_active_users(instances):
 #preparing to turn users into graph
 
 
-def init_social_network(deep_users_list):
+def get_social_network(deep_users_list):
     active_network_edges = dict()
+    active_users = list_active_users(deep_users_list)
     for user in deep_users_list:
+
 
 
 

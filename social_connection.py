@@ -13,5 +13,3 @@ class SocialConnection:
     def weight(self):
         return self.weighting_function(self.mentions, self.mentioned_by)
 
-
-
