@@ -3,6 +3,7 @@ import logs_to_dicts as ld
 import User
 import social_connection as edge
 
+
 def get_conversations_site19():
     site19_logs_path = '/Users/connornelson/Desktop/Logs/irc.synirc.net.old/Channels/#site19/'
     site19_conversations = os.listdir(site19_logs_path)
@@ -36,12 +37,6 @@ def get_deep_users_list_from_all_conversations(conversations):
     return all_user_instances
 
 
-
-convo_list = get_conversations_site19()
-instances = get_deep_users_list_from_all_conversations(convo_list)
-size = len(instances)
-
-
 def list_active_users(instances):
     active_username_list = list()
     for user_instance in instances:
@@ -49,7 +44,7 @@ def list_active_users(instances):
 
     return active_username_list
 
-#preparing to turn users into graph
+# #preparing to turn users into graph
 
 
 def get_social_network(deep_users_list):
@@ -63,11 +58,7 @@ def get_social_network(deep_users_list):
                         active_network_edges[str(user.username + " " + username)] = user.social_connections.append(edge.SocialConnection(user=username, mentions=1, mentioned_by=0))
                     else:
                         active_network_edges[str(user.username + " " + username)].mentions += 1
-
-
-
-
-
+    print(active_network_edges)
 
 
 def list_username_mentions(user, usernames_list):
@@ -97,6 +88,7 @@ def get_username_mentions(user, user_mentioned):
     return user.username_mentions[user_mentioned]
 
 
-
-
-
+convo_list = get_conversations_site19()
+instances = get_deep_users_list_from_all_conversations(convo_list)
+size = len(instances)
+get_social_network(instances)
