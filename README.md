@@ -6,8 +6,9 @@ Because this is a passion project, ideally it will also do things like track soc
 
 TODO: 
 1) network formation 
-2) semantic analysis of logs 
-3) richer user class 
-4) message class for richer message data storage 
-5) gui 
+2) dual linked edges for social network instead of singly linked
+3) semantic analysis of logs 
+4) richer user class 
+5) message class for richer message data storage 
+6) gui 
 

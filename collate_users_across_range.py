@@ -56,6 +56,14 @@ def get_social_network(deep_users_list):
     active_network_edges = dict()
     active_users = list_active_users(deep_users_list)
     for user in deep_users_list:
+        for message in user.message_log:
+            for username in active_users:
+                if username in message:
+                    if str(user.username + " " + username) not in active_network_edges:
+                        active_network_edges[str(user.username + " " + username)] = user.social_connections.append(edge.SocialConnection(user=username, mentions=1, mentioned_by=0))
+                    else:
+                        active_network_edges[str(user.username + " " + username)].mentions += 1
+
 
 
 
