@@ -3,6 +3,7 @@ import os
 import unittest
 import dateutil.parser
 from User import User
+from Message import Message
 
 # #class testDT_FROM_TIMESTAMP(unittest.TestCase):
 #    def test(self):
@@ -53,7 +54,7 @@ def grab_users_userdata(filename):
                     time_stamp = convo_date + 'T' + time_stamp
                 for i in range(0, len(usernames)):
                     if username == usernames[i].username:
-                        usernames[i].add_message(timestamp=time_stamp, message_text=message)
+                        usernames[i].add_message(Message(message=message, timestamp=time_stamp))
                         is_in_list = True
 
                 if not is_in_list:

@@ -1,11 +1,12 @@
 import datetime as dt
 import logs_to_dicts as ltd
+import Message as Message
 
 
 class User:
     def __init__(self, user):
         self.username = user
-        self.message = {'timestamp': dt.datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0), 'message': ""}
+        self.message = Message
         self.message_log = list()
         self.username_mentions = dict()
         self.social_connections = list()
