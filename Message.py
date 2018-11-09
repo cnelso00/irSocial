@@ -7,39 +7,43 @@ class Message:
         self.keywords = self.find_keywords()
 
     @staticmethod
-    def is_common_word(self, word):
+    def is_not_common_word(self, word):
         common_words = {
-            "the" : True,
-            "be" : True,
-            "to" : True,
-            "of" : True,
-            "and" : True,
-            "a" : True,
-            "in" : True,
-            "that" : True,
-            "have" : True,
-            "I" : True,
-            "it" : True,
-            "for" : True,
-            "not" : True,
-            "on" : True,
-            "with" : True,
-            "he" : True,
-            "as" : True,
-            "you" : True,
-            "do" : True,
-            "at" : True
+            "the": False,
+            "be": False,
+            "to": False,
+            "of": False,
+            "and": False,
+            "a": False,
+            "in": False,
+            "that": False,
+            "have": False,
+            "I": False,
+            "it": False,
+            "for": False,
+            "not": False,
+            "on": False,
+            "with": False,
+            "he": False,
+            "as": False,
+            "you": False,
+            "do": False,
+            "at": False
         }
 
-        return common_words.get(word, False)
+        return common_words.get(word, True)
 
-
-    #going to use nltk freq dist instead and see how that works
+    # # going to use nltk freq dist instead and see how that works
     @staticmethod
     def find_keywords(self):
         keywords = dict()
         for word in self.message:
-            if not self.is_common_word(word):
+            if self.is_not_common_word(word):
+                if word not in keywords:
+                    dict[word] = 1
+                else:
+                    dict[word] += 1
+        return keywords
                 
 
 

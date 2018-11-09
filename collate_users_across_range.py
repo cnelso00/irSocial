@@ -1,23 +1,17 @@
 import os
 import logs_to_dicts as ld
 import User
-import social_connection as edge
+from social_connection import SocialConnection
 
 
 def get_conversations_site19():
-    site19_logs_path = '/Users/connornelson/Desktop/Logs/irc.synirc.net.old/Channels/#site19/'
+    site19_logs_path = ''
     site19_conversations = os.listdir(site19_logs_path)
     site19_conversations.sort()
     site19_conversations.remove('.DS_Store')
     for i in range (0, len(site19_conversations)):
         site19_conversations[i] = site19_logs_path + site19_conversations[i]
     return site19_conversations
-
-
-# this could potentially use a hashmap of username for faster searching?
-# map<username, user_data> ?
-# too much data to be recursive
-# but this is a monstrosity
 
 
 def get_deep_users_list_from_all_conversations(conversations):
@@ -44,8 +38,6 @@ def list_active_users(instances):
 
     return active_username_list
 
-# #preparing to turn users into graph
-
 
 def get_social_network(deep_users_list):
     active_network_edges = dict()
@@ -61,27 +53,19 @@ def get_social_network(deep_users_list):
     print(active_network_edges)
 
 
-def list_username_mentions(user, usernames_list):
-    for message in user.message_log:
-        for username in usernames_list:
-            if username in message:
-                if username not in user.username_mentions:
-                    user.username_mentions[username] = 1
-                else:
-                    user.username_mentions[username] += user.username_mentions[username]
-
-
 def calculate_weights_between_users(deep_users_list):
-    for user in deep_users_list:
-        for username, mention_count in user.username_mentions.items():
-            user.social_network.append(edge.SocialConnection(user_instance_from_name(username), mention_count, get_username_mentions(username, user_instance_from_name(user))))
-
-
-def user_instance_from_name(username, deep_users_list):
-        for user in deep_users_list:
-            if user.get_username() == username:
-                return user
-        return None
+    for user_a in deep_users_list:
+        for user_b in deep_users_list:
+            if user_a.social_connections.get(user_b.username) is None and \
+                            user_b.social_connections.get(user_a.username) is None:
+                mentions_of_b = user_a.keywords.get(user_b.username, 0)
+                mentions_of_a = user_b.keywords.get(user_a.username, 0)
+                social_connection = SocialConnection(user_a=user_a,
+                                                     user_b=user_b,
+                                                     mentions_of_a=mentions_of_a,
+                                                     mentions_of_b=mentions_of_b)
+                user_a.social_connections[user_b.username] = social_connection
+                user_b.social_connections[user_a.username] = social_connection
 
 
 def get_username_mentions(user, user_mentioned):
